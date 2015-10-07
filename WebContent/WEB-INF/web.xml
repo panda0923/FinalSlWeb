@@ -17,4 +17,12 @@
     <servlet-name>insert</servlet-name>
     <url-pattern>/insert.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>select</servlet-name>
+    <servlet-class>com.web.servlet.SelectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>select</servlet-name>
+    <url-pattern>/select.do</url-pattern>
+  </servlet-mapping>
 </web-app>
