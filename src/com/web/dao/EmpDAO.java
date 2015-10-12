@@ -67,7 +67,7 @@ public class EmpDAO {
 	}
 	public EmpDTO BestEmp(String count){
 		con();
-		EmpDTO e=null;
+		EmpDTO dto = new EmpDTO();
 		ResultSet rs = null;
 		String sql = "select *form emp where count=?";
 		try{
@@ -75,9 +75,13 @@ public class EmpDAO {
 			pstmt.setString(1,count);
 			rs=pstmt.executeQuery();
 			if(rs.next()){
-			e=new EmpDTO(rs.getInt(1),rs.getString(2),rs.getString(3),
-							rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
-				
+			dto.setEmpNo(rs.getInt(EmpNo));
+			dto.setPosition(rs.getString(Position));
+			dto.setPassWord(rs.getString(PassWord));
+			dto.setEmpName(rs.getString(EmpName));
+			dto.setDept(rs.getString(Dept));
+			dto.setEmpjoin(rs.getString(Empjoin));
+			dto.setCount(rs.getString(count));
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();

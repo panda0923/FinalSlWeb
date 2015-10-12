@@ -10,8 +10,7 @@ public class EmpDTO {
 	private String Empjoin;
 	private String count;
 	
-	public EmpDTO(int EmpNo,String Position,int PassWord,
-			String EmpName,String Dept,String Empjoin){
+	public EmpDTO(int EmpNo, String Position, int PassWord, String EmpName, String Dept, String Empjoin, String count){
 		super();
 		this.EmpNo=EmpNo;
 		this.Position=Position;
