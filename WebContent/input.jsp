@@ -26,7 +26,8 @@
 		<input type=submit value="등록" >
 	
 	</form>
-		<form name = "form2" method="post" action="/FinalSlWeb/select.do">
+		<form name = "form2" method="post" action="/FinalSlWeb/select.do" type="brank">
+			<input type = "text" name="EmpNam">
 		<input type=submit value="사원조회" >
 	</form>
 </body>

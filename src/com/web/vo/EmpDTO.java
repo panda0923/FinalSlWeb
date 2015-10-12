@@ -1,4 +1,4 @@
-package com.web.servlet;
+package com.web.vo;
 
 public class EmpDTO {
 
@@ -8,10 +8,8 @@ public class EmpDTO {
 	private String EmpName;
 	private String Dept;
 	private String Empjoin;
+	private String count;
 	
-	public EmpDTO(){
-		
-	}
 	public EmpDTO(int EmpNo,String Position,int PassWord,
 			String EmpName,String Dept,String Empjoin){
 		super();
@@ -21,6 +19,7 @@ public class EmpDTO {
 		this.EmpName=EmpName;
 		this.Dept=Dept;
 		this.Empjoin=Empjoin;
+		this.count=count;
 	}
 	
 	public int getEmpNo() {
@@ -58,6 +57,12 @@ public class EmpDTO {
 	}
 	public void setEmpjoin(String empjoin) {
 		Empjoin = empjoin;
+	}
+	public String getCount() {
+		return count;
+	}
+	public void setCount(String count) {
+		this.count = count;
 	}
 	
 }

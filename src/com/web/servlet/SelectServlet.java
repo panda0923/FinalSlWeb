@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.dao.EmpDAO;
+import com.web.vo.EmpDTO;
+
 /**
  * Servlet implementation class SelectServlet
  */
-@WebServlet("/Select")
+@WebServlet("/SelectServlet")
 public class SelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -21,8 +24,16 @@ public class SelectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost( request, response );
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("/text.html: charset=UTF-8");
+		response.setContentType( "text/html; charset=UTF-8");
 		
 		EmpDAO dao = new EmpDAO();
 		 ArrayList<EmpDTO> userlist=dao.selectAll();
@@ -40,11 +51,12 @@ public class SelectServlet extends HttpServlet {
 			pw.println("</tr>");
 			
 			int size =userlist.size();
+			
 			for(int i=0;i<size;i++){
 				 int EmpNo =userlist.get(i).getEmpNo();
 				 String Position=userlist.get(i).getPosition();
 				 int PassWord =userlist.get(i).getPassWord();
-				 String EmpName=userlist.get(i).getEmpName();
+				 String EmpName = request.getParameter("EmpName");
 				 String Dept=userlist.get(i).getDept();
 				 String Empjoin=userlist.get(i).getEmpjoin();
 				 pw.print("<tr>");
@@ -57,16 +69,8 @@ public class SelectServlet extends HttpServlet {
 				 pw.print("<td><a href=/FinalSlWeb/insert.do?test=info&EmpNo="+EmpNo+">delete</a></td>");
 			}
 		
-			pw.println("</html>");
 			pw.close();
 		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }
