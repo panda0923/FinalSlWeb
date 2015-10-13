@@ -1,4 +1,4 @@
-package com.web.web.action;
+package com.web.action.user;
 
 import java.io.IOException;
 
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.dao.EmpDAO;
 import com.web.vo.EmpDTO;
+import com.web.web.action.Action;
 
 public class InsertAction implements Action {
 
@@ -24,19 +25,20 @@ public class InsertAction implements Action {
 		String EmpName = request.getParameter("EmpName");
 		String Dept = request.getParameter("Dept");
 		String Empjoin = request.getParameter("Empjoin");
+		String count =request.getParameter("count");
+		EmpDTO dto = new EmpDTO();
+		dto.setEmpNo(EmpNo);
+		dto.setPosition(Position);
+		dto.setPassWord(PassWord);
+		dto.setEmpName(EmpName);
+		dto.setDept(Dept);
+		dto.setEmpjoin(Empjoin);
+		dto.setCount(count);
 		
 		EmpDAO dao = new EmpDAO();
-		EmpDTO user = new EmpDTO(EmpNo,Position,PassWord,EmpName,
-													Dept,Empjoin);
+		dao.insert(dto);
+		response.sendRedirect("");
 		
-		int result  =dao.insert(user);
-		if(result ==0){
-			System.out.println("입력실패");
-		}else{
-			
-			System.out.println("입력완료");
-		
-		}
 	}
 
 }

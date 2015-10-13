@@ -2,60 +2,49 @@ package com.web.vo;
 
 public class EmpDTO {
 
-	private int EmpNo;
-	private String Position;
-	private int PassWord ;
-	private String EmpName;
-	private String Dept;
-	private String Empjoin;
+	private int empNo;
+	private String position;
+	private int passWord ;
+	private String empName;
+	private String dept;
+	private String empjoin;
 	private String count;
 	
-	public EmpDTO(int EmpNo, String Position, int PassWord, String EmpName, String Dept, String Empjoin, String count){
-		super();
-		this.EmpNo=EmpNo;
-		this.Position=Position;
-		this.PassWord=PassWord;
-		this.EmpName=EmpName;
-		this.Dept=Dept;
-		this.Empjoin=Empjoin;
-		this.count=count;
-	}
-	
 	public int getEmpNo() {
-		return EmpNo;
+		return empNo;
 	}
 	public void setEmpNo(int empNo) {
-		EmpNo = empNo;
+		this.empNo = empNo;
 	}
 	public String getPosition() {
-		return Position;
+		return position;
 	}
 	public void setPosition(String position) {
-		Position = position;
+		this.position = position;
 	}
 	public int getPassWord() {
-		return PassWord;
+		return passWord;
 	}
 	public void setPassWord(int passWord) {
-		PassWord = passWord;
+		this.passWord = passWord;
 	}
 	public String getEmpName() {
-		return EmpName;
+		return empName;
 	}
 	public void setEmpName(String empName) {
-		EmpName = empName;
+		this.empName = empName;
 	}
 	public String getDept() {
-		return Dept;
+		return dept;
 	}
 	public void setDept(String dept) {
-		Dept = dept;
+		this.dept = dept;
 	}
 	public String getEmpjoin() {
-		return Empjoin;
+		return empjoin;
 	}
 	public void setEmpjoin(String empjoin) {
-		Empjoin = empjoin;
+		this.empjoin = empjoin;
 	}
 	public String getCount() {
 		return count;
@@ -63,5 +52,12 @@ public class EmpDTO {
 	public void setCount(String count) {
 		this.count = count;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "EmpDTO [empNo=" + empNo + ", position=" + position
+				+ ", passWord=" + passWord + ", empName=" + empName + ", dept="
+				+ dept + ", empjoin=" + empjoin + ", count=" + count + "]";
+	}
+
 }

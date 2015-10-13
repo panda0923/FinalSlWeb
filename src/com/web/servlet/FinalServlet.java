@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.action.user.UserActionFactory;
 import com.web.web.action.Action;
 import com.web.web.action.ActionFactory;
-import com.web.web.action.FinalActionFactory;
 
 
 
@@ -29,7 +29,7 @@ public class FinalServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding( "UTF-8" );
 		String actionName = request.getParameter( "a" );
-		ActionFactory actionFactory = new FinalActionFactory();
+		ActionFactory actionFactory = new UserActionFactory();
 		Action action = actionFactory.getAction( actionName );
 		action.execute(request, response);
 	}
