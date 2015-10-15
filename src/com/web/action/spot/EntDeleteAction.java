@@ -23,7 +23,7 @@ public class EntDeleteAction implements Action {
 		
 		SpotDao dao = new SpotDao();
 		dao.delete(dto);
-		response.sendRedirect("");
+		response.sendRedirect("/FinalSlWeb/views/board/entlist.jsp");
 	}
 
 }

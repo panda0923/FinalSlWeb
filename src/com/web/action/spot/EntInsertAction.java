@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.dao.SpotDao;
 import com.web.vo.SpotDTO;
+import com.web.web.WebUtil;
 import com.web.web.action.Action;
 
 public class EntInsertAction implements Action {
@@ -19,14 +20,14 @@ public class EntInsertAction implements Action {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		Long entno = Long.parseLong(request.getParameter("entno"));
+		
 		String entname = request.getParameter("entname");
 		String entspot = request.getParameter("entspot");
 		String enttel = request.getParameter("enttel");
 		String entempname = request.getParameter("entempname");
 		
 		SpotDTO dto = new SpotDTO();
-		dto.setEntno(entno);
+		
 		dto.setEntname(entname);
 		dto.setEntspot(entspot);
 		dto.setEnttel(enttel);
@@ -34,7 +35,8 @@ public class EntInsertAction implements Action {
 		
 		SpotDao dao = new SpotDao();
 		dao.insert(dto);
-		response.sendRedirect("");
+		WebUtil.forwarding(request, response, "views/main/index.jsp");
+		
 	}
 
 }

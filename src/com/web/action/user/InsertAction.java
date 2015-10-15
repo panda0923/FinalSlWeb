@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.dao.EmpDAO;
 import com.web.vo.EmpDTO;
+import com.web.web.WebUtil;
 import com.web.web.action.Action;
 
 public class InsertAction implements Action {
@@ -16,18 +17,18 @@ public class InsertAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
+	
 		
-		int EmpNo= Integer.parseInt(request.getParameter("EmpNo"));
+		
 		String Position = request.getParameter("Position");
-		int PassWord = Integer.parseInt(request.getParameter("PassWord"));
+		String PassWord = request.getParameter("PassWord");
 		String EmpName = request.getParameter("EmpName");
 		String Dept = request.getParameter("Dept");
 		String Empjoin = request.getParameter("Empjoin");
 		String count =request.getParameter("count");
+		
 		EmpDTO dto = new EmpDTO();
-		dto.setEmpNo(EmpNo);
+	
 		dto.setPosition(Position);
 		dto.setPassWord(PassWord);
 		dto.setEmpName(EmpName);
@@ -37,8 +38,9 @@ public class InsertAction implements Action {
 		
 		EmpDAO dao = new EmpDAO();
 		dao.insert(dto);
-		response.sendRedirect("");
+		WebUtil.forwarding(request, response, "views/main/index.jsp");
 		
 	}
+	
 
 }

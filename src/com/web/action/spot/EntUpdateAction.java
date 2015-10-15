@@ -24,10 +24,18 @@ public class EntUpdateAction implements Action {
 		String entempname = request.getParameter("entempname");
 		
 		SpotDao dao = new SpotDao();
+		
+		
 		SpotDTO dto = new SpotDTO();
+		dto.setEntname(entname);
+		dto.setEntspot(entspot);
+		dto.setEnttel(enttel);
+		dto.setEntempname(entempname);
+		dto.setEntno(entno);
+		
 		dao.update(dto);
 		
-		response.sendRedirect("");
+		response.sendRedirect("/FinalSlWeb/wiews/board/entlist.jsp");
 	}
 
 }

@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.web.vo.EmpDTO;
-import com.web.vo.SpotDTO;
-import com.sun.org.apache.xerces.internal.util.DOMUtil;
+import com.web.vo.IndolDTO;
+import com.web.vo.RankVo;
+
 
 
 public class EmpDAO {
@@ -41,11 +42,11 @@ private Connection getConnection() throws SQLException {
 			//1.connection 가져오기
 			Connection connection = getConnection();
 			//2.PreparedStatement준비
-			String sql="insert into emp values(EMP_SEQ.nextval,?,?,?,?,SYSDATE,?)";		
+			String sql="insert into emp values(EMP_EMPNO_SEQ.nextval,?,?,?,?,SYSDATE,?)";		
 			PreparedStatement pstmt=connection.prepareStatement(sql);
 			//3.바인딩
 			pstmt.setString(1, dto.getPosition());
-			pstmt.setInt(2, dto.getPassWord());
+			pstmt.setString(2, dto.getPassWord());
 			pstmt.setString(3, dto.getEmpName());
 			pstmt.setString(4, dto.getDept());
 			pstmt.setString(5, dto.getCount());
@@ -73,9 +74,9 @@ private Connection getConnection() throws SQLException {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()){
-				dto.setEmpNo(rs.getInt("empNo"));
+				dto.setEmpNo(rs.getLong("empNo"));
 				dto.setPosition(rs.getString("position"));
-				dto.setPassWord(rs.getInt("passWord"));
+				dto.setPassWord(rs.getString("passWord"));
 				dto.setDept(rs.getString("dept"));
 				dto.setEmpjoin(rs.getString("empjoin"));
 				dto.setCount(rs.getString("count"));
@@ -90,26 +91,39 @@ private Connection getConnection() throws SQLException {
 		}
 		return null;
 	}
-	public EmpDTO BestEmp(String count){
+	
+	public List<EmpDTO> BestEmp(){
+		 ArrayList<EmpDTO> list = new ArrayList<EmpDTO>();
 		
-		EmpDTO dto = new EmpDTO();
+		
 		ResultSet rs = null;
 		
 		try{
 			Connection connection = getConnection();
-			String sql = "select *from emp where count=?";
+			String sql = "select e.empname,e.position,e.dept,RANK()OVER(ORDER BY sum(ok))"
+					+"from emp e,indol i "
+					+"where e.empno = i.empno "
+					+"group by empname,position,dept ";
 			PreparedStatement pstmt=connection.prepareStatement(sql);
-			pstmt.setString(1,count);
-			rs=pstmt.executeQuery();
 			
-			if(rs.next()){
-				dto.setEmpNo(rs.getInt("empNo"));
-				dto.setPosition(rs.getString("position"));
-				dto.setPassWord(rs.getInt("passWord"));
-				dto.setEmpName(rs.getString("empName"));
-				dto.setDept(rs.getString("dept"));
-				dto.setEmpjoin(rs.getString("empjoin"));
-				
+			rs=pstmt.executeQuery();
+	
+			while(rs.next()){
+			
+			String empName=rs.getString(1);;
+			String position=rs.getString(2);
+			String dept=rs.getString(3);;
+			Long ok = rs.getLong(4);
+			
+			
+			
+			 EmpDTO dto = new EmpDTO();
+			 dto.setEmpName(empName);
+			 dto.setPosition(position);
+			 dto.setDept(dept);
+			 dto.setOk(ok);
+		
+			 list.add(dto);
 				
 			}
 			rs.close();
@@ -119,7 +133,7 @@ private Connection getConnection() throws SQLException {
 			System.out.println( "SQL 오류-" + ex );
 		}
 		
-		return dto;
+		return list;
 	}
 	public List<EmpDTO> selectAll(){
 		 ArrayList<EmpDTO> list = new ArrayList<EmpDTO>();
@@ -131,17 +145,17 @@ private Connection getConnection() throws SQLException {
 			
 			Statement stmt = connection.createStatement(); 
 			//3.쿼리 문 실행
-			String sql="select * from emp  ";
+			String sql="select * from emp ";
 			ResultSet rs = stmt.executeQuery( sql );
 			//4,.row 가져오기
 		while(rs.next()){
-			 int empNo=rs.getInt(1);
+			 Long empNo=rs.getLong(1);
 			 String position=rs.getString(2);
-			 int passWord =rs.getInt(3);;
+			 String passWord =rs.getString(3);;
 			 String empName=rs.getString(4);;
 			 String dept=rs.getString(5);;
 			 String empjoin=rs.getString(6);;
-			 String count=rs.getString(7);;
+			
 			 
 			 EmpDTO dto = new EmpDTO();
 			 dto.setEmpNo(empNo);
@@ -150,7 +164,7 @@ private Connection getConnection() throws SQLException {
 			 dto.setEmpName(empName);
 			 dto.setDept(dept);
 			 dto.setEmpjoin(empjoin);
-			 dto.setCount(count);
+			
 			 
 			 list.add(dto);
 			 
@@ -173,7 +187,7 @@ private Connection getConnection() throws SQLException {
 			//2.statement 생성
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			//3.바인딩
-			pstmt.setInt(1,dto.getEmpNo());
+			pstmt.setLong(1,dto.getEmpNo());
 			//4.쿼리실행
 			pstmt.executeUpdate();
 		
@@ -184,19 +198,19 @@ private Connection getConnection() throws SQLException {
 			System.out.println( "SQL 오류-" + ex );
 		}
 	}
-	public void update(int empNo,String position,int passWord ,String empName,String dept){
+	public void update(EmpDTO dto){
 		try{
 			Connection conn =getConnection();
-			String sql ="UPDATE emp set position=?,passWord=?,empName=?,dept=?,where empNo=?";
+			String sql ="update emp set position=?,passWord=?,empName=?,dept=? where empNo=?" ;
 		
 			PreparedStatement pstmt =conn.prepareStatement(sql);
 			
 			//3.바인딩
-			pstmt.setString(1, position);
-			pstmt.setInt(2, passWord);
-			pstmt.setString(3, empName);
-			pstmt.setString(4,dept);
-			pstmt.setInt(5, empNo);
+			pstmt.setString(1,dto.getPosition());
+			pstmt.setString(2, dto.getPassWord());
+			pstmt.setString(3, dto.getEmpName());
+			pstmt.setString(4,dto.getDept());
+			pstmt.setLong(5, dto.getEmpNo());
 			
 			pstmt.executeUpdate();
 		

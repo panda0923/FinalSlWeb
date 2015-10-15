@@ -2,18 +2,19 @@ package com.web.vo;
 
 public class EmpDTO {
 
-	private int empNo;
+	private Long empNo;
 	private String position;
-	private int passWord ;
+	private String passWord ;
 	private String empName;
 	private String dept;
 	private String empjoin;
 	private String count;
-	
-	public int getEmpNo() {
+	private Long ok;
+
+	public Long getEmpNo() {
 		return empNo;
 	}
-	public void setEmpNo(int empNo) {
+	public void setEmpNo(Long empNo) {
 		this.empNo = empNo;
 	}
 	public String getPosition() {
@@ -22,10 +23,10 @@ public class EmpDTO {
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	public int getPassWord() {
+	public String getPassWord() {
 		return passWord;
 	}
-	public void setPassWord(int passWord) {
+	public void setPassWord(String passWord) {
 		this.passWord = passWord;
 	}
 	public String getEmpName() {
@@ -52,12 +53,19 @@ public class EmpDTO {
 	public void setCount(String count) {
 		this.count = count;
 	}
+	public Long getOk() {
+		return ok;
+	}
+	public void setOk(Long ok) {
+		this.ok = ok;
+	}
 
 	@Override
 	public String toString() {
 		return "EmpDTO [empNo=" + empNo + ", position=" + position
 				+ ", passWord=" + passWord + ", empName=" + empName + ", dept="
-				+ dept + ", empjoin=" + empjoin + ", count=" + count + "]";
+				+ dept + ", empjoin=" + empjoin + ", count=" + count + ", ok="
+				+ ok + "]";
 	}
 
 }

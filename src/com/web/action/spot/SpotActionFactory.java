@@ -16,10 +16,13 @@ public class SpotActionFactory extends ActionFactory {
 			action  = new EntDeleteAction();
 		}else if("update".equals(actionName)){
 			action = new EntUpdateAction();
+		}else if("updateform".equals(actionName)){
+			action = new EntUpdateFormAction();
 		}else if("search".equals(actionName)){
 			action = new EntSearchAction();
 		}else{
-			// WebUtil.redirect(response, "/mysite/Member?a=joinsueccess");
+			
+			
 		}
 		return action;
 	}

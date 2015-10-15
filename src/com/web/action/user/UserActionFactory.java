@@ -10,6 +10,8 @@ public class UserActionFactory extends ActionFactory {
 		Action action = null;
 		if("insert".equals(actionName)){
 			action = new InsertAction();
+		}else if("updateform".equals(actionName)){
+			action = new UpdateFormAction();
 		}else if("update".equals(actionName)){
 			action = new UpdateAction();
 		}else if("bestEmp".equals(actionName)){

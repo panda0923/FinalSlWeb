@@ -20,9 +20,9 @@ public class EmpSerchAction implements Action {
 			EmpDAO dao = new EmpDAO();
 			EmpDTO dto = dao.EmpSerch(empName);
 			
-			 int empNo=dto.getEmpNo();
+			 Long empNo=dto.getEmpNo();
 			 String position= dto.getPosition();
-			 int passWord = dto.getPassWord();
+			 String passWord = dto.getPassWord();
 			 String dept=dto.getDept();
 			 String empjoin=dto.getEmpjoin();
 			 

@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.web.vo.EmpDTO;
 import com.web.vo.SpotDTO;
@@ -38,7 +40,7 @@ public class SpotDao {
 				//1.connection 가져오기
 				Connection connection = getConnection();
 				//2.PreparedStatement준비
-				String sql="insert into EXENTERPRISE values(ENTNO_SEQ.nextval,?,?,?,?)";		
+				String sql="insert into EXENTERPRISE values( EXENTERPRISE_entno_SEQ.nextval,?,?,?,?)";		
 				PreparedStatement pstmt=connection.prepareStatement(sql);
 				//3.바인딩
 				
@@ -128,6 +130,47 @@ public class SpotDao {
 		}
 	}
 
-	
+	public List<SpotDTO> selectAll(){
+		 ArrayList<SpotDTO> list = new ArrayList<SpotDTO>();
+
+		try{
+			//1.connection 가져오기
+			Connection connection = getConnection();
+			//2.Statement 생성
+			
+			Statement stmt = connection.createStatement(); 
+			//3.쿼리 문 실행
+			String sql="select * from EXENTERPRISE  ";
+			ResultSet rs = stmt.executeQuery( sql );
+			//4,.row 가져오기
+		while(rs.next()){
+			Long entno = rs.getLong(1);
+			String entname = rs.getString(2);
+			String entspot=rs.getString(3);
+			String enttel=rs.getString(4);
+			String entempname=rs.getString(5);
+			
+			 
+			SpotDTO dto=new SpotDTO();
+			dto.setEntno(entno);
+			dto.setEntname(entname);
+			dto.setEntspot(entspot);
+			dto.setEnttel(enttel);
+			dto.setEntempname(entempname);
+					
+			 
+			 list.add(dto);
+			 
+		}
+		
+			rs.close();
+			stmt.close();
+			connection.close();
+		}catch(Exception ex){
+				System.out.println( "SQL 오류-" + ex );
+			}
+		
+		return list;
+		}
 	
 }
